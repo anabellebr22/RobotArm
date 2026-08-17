@@ -34,6 +34,26 @@ The `lerobot/` directory is vendored third-party code from Hiwonder's distributi
 Do not edit files inside it. If something in lerobot appears to be the problem, say so
 and explain — don't patch it. Debug my configuration, ports, and commands first.
 
+### lerobot/ is a real git repository — never run git commands in it
+
+Hiwonder shipped `lerobot/` with its own `.git` and full history. VS Code reports it
+as 766 commits behind its upstream remote.
+
+- **NEVER** run `git pull`, `git fetch`, `git merge`, or `git checkout` inside `lerobot/`.
+  My conda environment is installed in editable mode against this exact source tree
+  (`pip install -e`). Pulling 766 upstream commits would change the code my working
+  install points at and would likely break it.
+- **NEVER** commit or push from inside `lerobot/`. It is not my repository.
+- If VS Code or any tool suggests syncing, pulling, or publishing that repo, ignore it.
+- Before running any git command, confirm the working directory is
+  `~/Desktop/RobotArm`, not `~/Desktop/RobotArm/lerobot`.
+- Its history is useful for one thing only: reading it to see what Hiwonder changed
+  versus upstream LeRobot. Read-only. Do not delete `lerobot/.git`.
+
+My repository is `~/Desktop/RobotArm` — branch `main`, `lerobot/` excluded via .gitignore.
+VS Code's `git.autoRepositoryDetection` is set to `openEditors` so the nested repo does
+not appear in the Source Control panel.
+
 ---
 
 ## Hardware
@@ -147,6 +167,7 @@ Verified working state:
    Not blocking — training happens on a cloud GPU, inference runs on CPU. If investigating
    later, first check `sw_vers -productVersion`; MPS requires macOS 12.3 or newer.
    **Do not reinstall torch to chase this.** The environment took hours to get working.
+   
 
 ---
 
