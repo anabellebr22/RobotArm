@@ -1,0 +1,21 @@
+# Vendored third-party code — Hiwonder's LeRobot distribution.
+# Has its own git repo. Not mine to version.
+lerobot/
+
+# Vendor manual — large binary, not mine to redistribute
+*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Training artifacts and datasets
+outputs/
+checkpoints/
+wandb/
+*.safetensors
+*.ckpt
+
+# macOS
+.DS_Store
